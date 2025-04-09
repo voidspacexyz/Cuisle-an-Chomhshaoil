@@ -1,51 +1,122 @@
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
-          Arial, sans-serif;
-        background: #f8f9fa;
-        margin: 0;
-        padding: 2rem;
-      }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  background: #f8f9fa;
+  margin: 0;
+  padding: 2rem;
+}
 
-      .grid {
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
+/* Add these styles to your style.css */
 
-      .audio {
-        background: #E8F5E9;
-      }
-      .video {
-        background: #F5F5F5;
-      }
-      .image {
-        background: #E3F2FD;
-      }
-      .grid-item {
-        width: 360px;
-        border-radius: 12px;
-        padding: 1.5rem;
-        margin: 0.5rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        transition: transform 0.2s ease;
-      }
+/* Button group container */
+.filter-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center; /* Center buttons on small screens */
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 1400px; /* Match grid width */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0.5rem; /* Add slight padding */
+}
 
-      .grid-item:hover {
-        transform: translateY(-4px);
-      }
+/* Individual buttons */
+.filter-button-group button {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-      .grid-item h3 {
-        margin: 0 0 0.5rem 0;
-        color: #333;
-      }
+.filter-button-group button:hover {
+  background: #f0f0f0;
+}
 
-      .grid-item p {
-        margin: 0;
-        color: #666;
-        line-height: 1.4;
-      }
+.filter-button-group button.active {
+  background: #333;
+  color: white;
+  border-color: #333;
+}
 
-      .grid-sizer {
-        width: 280px;
-      }
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .filter-button-group {
+    justify-content: flex-start; /* Left-align on mobile */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    padding-bottom: 0.5rem; /* Space for scroll */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  .filter-button-group button {
+    flex-shrink: 0; /* Prevent button shrinking */
+  }
+}
+
+.audio {
+  background: #e8f5e9;
+}
+.video {
+  background: #f5f5f5;
+}
+.image {
+  background: #e3f2fd;
+}
+
+.grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  width: 360px;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.grid-item:hover {
+  transform: translateY(-4px);
+}
+
+.grid-item h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.grid-item p {
+  margin: 0;
+  color: #666;
+  line-height: 1.4;
+}
+
+.grid-sizer {
+  width: 280px;
+}
+
+
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #dee2e6;
+  width: 100%;
+}
+
+.nav-tabs .nav-item {
+  flex: 1; /* Each tab takes equal width */
+  text-align: center;
+}
+
+.nav-tabs .nav-link {
+  width: 100%;
+  padding: 0.75rem 0;
+  font-size: 1.1rem;
+}
