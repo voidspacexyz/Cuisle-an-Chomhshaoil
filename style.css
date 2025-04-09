@@ -13,13 +13,13 @@
       }
 
       .audio {
-        background: red;
+        background: #E8F5E9;
       }
       .video {
-        background: orange;
+        background: #F5F5F5;
       }
       .image {
-        background: yellow;
+        background: #E3F2FD;
       }
       .grid-item {
         width: 360px;

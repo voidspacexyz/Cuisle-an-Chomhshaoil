@@ -21,10 +21,10 @@ async function loadArchiveData() {
       const getCellValue = (index) => row.c?.[index]?.v || "";
 
       const item = {
-        "Title:en": getCellValue(0),
-        "Title:ga": getCellValue(1),
-        "Description:en": getCellValue(2),
-        "Description:ga": getCellValue(3),
+        Title: getCellValue(0),
+        Teideal: getCellValue(1),
+        Description: getCellValue(2),
+        "Cur síos": getCellValue(3),
         Language: getCellValue(4),
         Creator: getCellValue(5),
         Date: getCellValue(6),
@@ -33,7 +33,7 @@ async function loadArchiveData() {
         Filename: getCellValue(14),
       };
 
-      if (!item["Title:en"] && !item["Filename"]) return; // Skip empty rows
+      if (!item["Title"] && !item["Filename"]) return; // Skip empty rows
       const mediaUrl = item.Filename;
       const card = document.createElement("div");
       card.dataset.media = encodeURIComponent(item.Filename);
@@ -47,9 +47,9 @@ async function loadArchiveData() {
         card.className = "grid-item image";
       }
 
-      card.innerHTML = `<h3>${item["Title:en"] || "Untitled"}</h3>
-            <p>${(item["Description:en"] || "").substring(0, 100)}${
-        item["Description:en"] && item["Description:en"].length > 100
+      card.innerHTML = `<h3>${item["Title"] || "Untitled"}</h3>
+            <p>${(item["Description"] || "").substring(0, 100)}${
+        item["Description"] && item["Description"].length > 100
           ? "..."
           : ""
       }</p>
@@ -76,7 +76,6 @@ async function loadArchiveData() {
                 `;
   }
 }
-
 
 function getMediaPreview(url) {
   const extension = url.split(".").pop().toLowerCase();
