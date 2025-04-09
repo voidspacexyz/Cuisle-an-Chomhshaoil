@@ -8,72 +8,83 @@
     <!-- Packery Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/draggabilly/3.0.0/draggabilly.pkgd.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+    
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <link rel="stylesheet" href="style.css" />
     <script src="dataloader.js"></script>
   </head>
   <body>
 
-  
+    
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6"> <!-- Adjust column width as needed -->
-      <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">List View</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Explore the Map</button>
-        </li>
-      </ul>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6"> <!-- Adjust column width as needed -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">List View</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Explore the Map</button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 
-    <br> <br>
-    <div class="button-group filter-button-group">
-          <button data-filter="*">Show all</button>
-          <button class="button" data-filter=".audio">Listen to our music</button>
-          <button class="button" data-filter=".video">Watch us discuss</button>
-          <button class="button" data-filter=".image">See us in pictures</button>
-        </div>
-        <div class="grid" id="archive-items">
-          <div class="grid-sizer"></div>
-        </div>
+      <br> <br>
+      <div class="button-group filter-button-group">
+            <button data-filter="*">Show all</button>
+            <button class="button" data-filter=".audio">Listen to our music</button>
+            <button class="button" data-filter=".video">Watch us discuss</button>
+            <button class="button" data-filter=".image">See us in pictures</button>
+          </div>
+          <div class="grid" id="archive-items">
+            <div class="grid-sizer"></div>
+          </div>
 
-        <div class="modal fade" id="mediaModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-7">
-                                <div id="mediaDisplay" class="w-100" style="min-height: 400px;"></div>
-                            </div>
-                            <div class="col-md-5 metadata-panel">
-                                <table class="table table-sm" id="metadataTable"></table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+          <div class="modal fade" id="mediaModal" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-xl">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row">
+                              <div class="col-md-7">
+                                  <div id="mediaDisplay" class="w-100" style="min-height: 400px;"></div>
+                              </div>
+                              <div class="col-md-5 metadata-panel">
+                                  <table class="table table-sm" id="metadataTable"></table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        ---
+          <div id="map"></div>
+        ---
+
     </div>
-
-
-  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
-</div>
+  </div>
 
 
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
     <script src="formatter.js"></script>
+    <script src="maplayer.js"></script>
   </body>
 </html>

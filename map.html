@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Galway Satellite View (Latest)</title>
+    <title>Galway, Ireland - Satellite View</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-          crossorigin=""/>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <style>
-        html, body { height: 100%; margin: 0; }
-        #mapid { height: 100%; }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            width: 100%;
+            height: 100vh;
+        }
     </style>
 </head>
 <body>
-
-Map will be displayed here
-<div id="mapid"></div>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-        crossorigin=""></script>
-
-<script src="https://unpkg.com/esri-leaflet@3.0.14/dist/esri-leaflet.js"
-        integrity="sha512-Ti5F1f60lZncm9L5IrUYNdkcqt1v4/TgDo6cGsLnqBFVb57HZcmTjAjxqhTdQv5x/hz6G9i1zB14sbv45lKj+w=="
-        crossorigin=""></script>
-
-<script>
-    var map = L.map('mapid').setView([53.2709, -9.0568], 13);
-
-    // Using Esri Leaflet to access ArcGIS World Imagery
-    L.esri.tiledMapLayer({
-        url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer',
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    }).addTo(map);
-</script>
-
+    <div id="map"></div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // Initialize the map centered on Galway, Ireland
+        const map = L.map('map').setView([53.2707, -9.0568], 13);
+        
+        // Add Esri World Imagery as the base layer
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            maxZoom: 19
+        }).addTo(map);
+        
+        // Add some sample points with popups in Galway
+        const galwayPoints = [
+            {
+                name: "Galway Cathedral",
+                coords: [53.2763, -9.0574],
+                description: "One of Galway's most recognizable landmarks, built in 1965."
+            },
+            {
+                name: "Spanish Arch",
+                coords: [53.2695, -9.0535],
+                description: "Historic arch dating back to 1584, part of Galway's medieval walls."
+            },
+            {
+                name: "Eyre Square",
+                coords: [53.2744, -9.0490],
+                description: "Central public park in the heart of Galway city."
+            },
+            {
+                name: "Salthill Promenade",
+                coords: [53.2589, -9.0805],
+                description: "Popular seaside walk with views of Galway Bay."
+            }
+        ];
+        
+        // Create markers for each point
+        galwayPoints.forEach(point => {
+            L.marker(point.coords)
+                .addTo(map)
+                .bindPopup(`<b>${point.name}</b><br>${point.description}`);
+        });
+        
+        // Optional: Add a scale control
+        L.control.scale().addTo(map);
+    </script>
 </body>
 </html>
