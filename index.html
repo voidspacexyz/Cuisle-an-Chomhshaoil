@@ -62,18 +62,15 @@ async function loadArchiveData() {
         const data = await response.text();
         const jsonData = JSON.parse(data.substring(47).slice(0, -2));
         
-        console.log('Full API response:', jsonData); // Debug the full response
         
         // Corrected data access - check if jsonData.table exists and has rows
         const rows = jsonData.table?.rows || [];
         const container = document.getElementById('archive-items');
         container.innerHTML = '';
-        console.log(rows)
         rows.forEach((row, i) => {
             // if (!row || i === 0) return; // Skip header row and empty rows
             
             // Debug the row structure
-            console.log('Row data:', row);
             
             // Safely access cell values
             const getCellValue = (index) => row.c?.[index]?.v || '';
@@ -86,14 +83,13 @@ async function loadArchiveData() {
                 'Language': getCellValue(4),
                 'Creator': getCellValue(5),
                 'Date': getCellValue(6),
-                'Format': getCellValue(12),
-                'Filename': getCellValue(13)
+                'License': getCellValue(12),
+                'Format': getCellValue(13),
+                'Filename': getCellValue(14)
             };
 
-                    console.log(item)
                     if (!item['Title:en'] && !item['Filename']) return; // Skip empty rows
-                    
-                    const mediaUrl = `https://drive.google.com/uc?export=view&id=${extractFileId(item.Filename)}`;
+                    const mediaUrl = item.Filename ? `https://drive.google.com/uc?export=view&id=${extractFileId(item.Filename)}` : '';
                     const card = document.createElement('div');
                     card.className = 'col-md-6 col-lg-4 mb-4';
                     card.innerHTML = `
@@ -138,8 +134,19 @@ async function loadArchiveData() {
 
         function extractFileId(url) {
             if (!url) return '';
-            const match = url.match(/[-\w]{25,}/);
-            return match ? match[0] : '';
+            
+            // Handle direct file ID case
+            if (url.match(/^[a-zA-Z0-9_-]{25,}$/)) {
+                return url;
+            }
+            
+            // Handle Google Drive URL formats:
+            // 1. https://drive.google.com/file/d/FILE_ID/view
+            // 2. https://drive.google.com/open?id=FILE_ID
+            const driveRegex = /(?:https?:\/\/)?(?:www\.)?drive\.google\.com\/(?:file\/d\/|open\?id=)([a-zA-Z0-9_-]{25,})/;
+            const match = url.match(driveRegex);
+            
+            return match ? match[1] : '';
         }
 
         function getMediaPreview(format, url) {
