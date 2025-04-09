@@ -34,14 +34,11 @@ async function loadArchiveData() {
       };
 
       if (!item["Title:en"] && !item["Filename"]) return; // Skip empty rows
-      const mediaUrl = item.Filename
-        ? `https://drive.google.com/uc?export=view&id=${extractFileId(
-            item.Filename
-          )}`
-        : "";
-
-      console.log(item.Format);
+      const mediaUrl = item.Filename;
       const card = document.createElement("div");
+      card.dataset.media = encodeURIComponent(item.Filename);
+      card.dataset.format = item.Format.toLowerCase();
+      card.dataset.metadata = JSON.stringify(item); // Store the entire item object as JSON
       if (item.Format === "audio") {
         card.className = "grid-item audio";
       } else if (item.Format === "video") {
@@ -63,12 +60,11 @@ async function loadArchiveData() {
     initFormatter();
 
     // Add event listeners after all cards are created
-    document.querySelectorAll(".view-details").forEach((btn) => {
+    document.querySelectorAll(".grid-item").forEach((btn) => {
       btn.addEventListener("click", function () {
         const mediaUrl = decodeURIComponent(this.dataset.media);
-        const format = this.dataset.format;
         const metadata = JSON.parse(this.dataset.metadata);
-        showMediaDetails(mediaUrl, format, metadata);
+        showMediaDetails(mediaUrl, metadata);
       });
     });
   } catch (error) {
@@ -81,29 +77,10 @@ async function loadArchiveData() {
   }
 }
 
-function extractFileId(url) {
-  if (!url) return "";
 
-  // Handle direct file ID case
-  if (url.match(/^[a-zA-Z0-9_-]{25,}$/)) {
-    return url;
-  }
-
-  // Handle Google Drive URL formats:
-  // 1. https://drive.google.com/file/d/FILE_ID/view
-  // 2. https://drive.google.com/open?id=FILE_ID
-  const driveRegex =
-    /(?:https?:\/\/)?(?:www\.)?drive\.google\.com\/(?:file\/d\/|open\?id=)([a-zA-Z0-9_-]{25,})/;
-  const match = url.match(driveRegex);
-
-  return match ? match[1] : "";
-}
-
-function getMediaPreview(format, url) {
-  if (!format || !url)
-    return '<div class="text-center py-5">No preview available</div>';
-
-  const lowerFormat = format.toLowerCase();
+function getMediaPreview(url) {
+  const extension = url.split(".").pop().toLowerCase();
+  const lowerFormat = extension.toLowerCase();
   if (["mp3", "wav", "ogg"].includes(lowerFormat)) {
     return `<audio controls class="w-100"><source src="${url}" type="audio/${lowerFormat}"></audio>`;
   } else if (["mp4", "webm", "avi"].includes(lowerFormat)) {
@@ -114,9 +91,10 @@ function getMediaPreview(format, url) {
   return '<div class="text-center py-5">Preview not available</div>';
 }
 
-function showMediaDetails(url, format, metadata) {
+
+function showMediaDetails(url, metadata) {
   const mediaDisplay = document.getElementById("mediaDisplay");
-  mediaDisplay.innerHTML = getMediaPreview(format, url);
+  mediaDisplay.innerHTML = getMediaPreview(url);
 
   const table = document.getElementById("metadataTable");
   table.innerHTML = "";

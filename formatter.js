@@ -12,7 +12,7 @@ function initFormatter() {
   //   for an individual element
   var iso = new Isotope(".grid", {
     masonry: {
-      columnWidth: 200,
+      columnWidth: 10,
     },
   });
 

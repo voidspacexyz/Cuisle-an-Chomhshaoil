@@ -8,13 +8,21 @@
 
       .grid {
         width: 100%;
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
       }
 
+      .audio {
+        background: red;
+      }
+      .video {
+        background: orange;
+      }
+      .image {
+        background: yellow;
+      }
       .grid-item {
-        width: 280px;
-        background: white;
+        width: 360px;
         border-radius: 12px;
         padding: 1.5rem;
         margin: 0.5rem;
